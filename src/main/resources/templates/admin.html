@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN PANEL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .btn-group {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .action-btn {
+            padding: 5px 10px;
+            margin: 2px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .edit-btn {
+            background-color: #ffc107;
+            color: #000;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>USERS LIST</h1>
+
+    <div class="btn-group">
+        <button class="btn" onclick="window.location.href = '/admin/register'">Add user</button>
+        <button class="btn" onclick="window.location.href = '/user'">Your Profile</button>
+        <form th:action="@{/logout}" th:method="POST" style="display: inline;">
+            <input type="submit" value="Logout" class="btn"/>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>FirstName</th>
+            <th>Secondname</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.getUsername()}">UserName</td>
+            <td th:text="${user.getFirstname()}">First Name</td>
+            <td th:text="${user.getSecondName()}">Second Name</td>
+            <td th:text="${user.getAge()}">Age</td>
+            <td th:text="${user.getEmail()}">Email</td>
+            <td th:text="${user.getRoles()}">Role</td>
+            <td>
+                <a th:href="@{/admin/{id}/edit(id=${user.getId()})}">
+                    <button type="button" class="action-btn edit-btn">Edit</button>
+                </a>
+                <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}" style="display: inline;">
+                    <input type="submit" value="Delete" class="action-btn delete-btn"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

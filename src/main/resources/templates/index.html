@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>PP 3.1.2 Sec</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .menu {
+            list-style-type: none;
+            padding: 0;
+        }
+        .menu li {
+            margin: 1rem 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Kata Academy, Mimkhail Ivanov PP 3.1.2 </h1>
+    <ul class="menu">
+        <li sec:authorize="isAnonymous()">
+            <a href="/login" class="btn">Login</a>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+            Welcome, <span sec:authentication="name"></span>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+            <a href="/user" class="btn">Your Profile</a>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" th:method="POST">
+                <input type="submit" value="Logout" class="btn" style="background-color: #dc3545;">
+            </form>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

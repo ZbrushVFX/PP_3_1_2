@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>User Profile</h1>
+    </div>
+
+    <div class="nav-buttons">
+        <a href="/" class="btn">Main Page</a>
+        <form th:action="@{/logout}" th:method="POST" style="display: inline;">
+            <input type="submit" value="Logout" class="btn"/>
+        </form>
+        <a sec:authorize="hasRole('ADMIN')" href="/admin" class="btn">Admin Panel</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>UserName</th>
+            <th>Name</th>
+            <th>Second Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+        <tr>
+            <td th:text="${user.getUsername()}">UserName</td>
+            <td th:text="${user.getFirstname()}">FirstName</td>
+            <td th:text="${user.getSecondName()}">SecondName</td>
+            <td th:text="${user.getAge()}">Age</td>
+            <td th:text="${user.getEmail()}">Email</td>
+            <td th:text="${user.getRoles()}">Roles</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

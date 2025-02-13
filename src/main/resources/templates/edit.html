@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+        .logout-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Edit User</h2>
+    <form th:method="PATCH" th:action="@{/admin/{id}(id=${editable_user.getId()})}" th:object="${editable_user}">
+        <div class="form-group">
+            <label for="uname">Username</label>
+            <input type="text" th:field="*{username}" id="uname" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" th:field="*{firstname}" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="second_name">Second Name</label>
+            <input type="text" th:field="*{secondName}" id="second_name" required>
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" th:field="*{age}" id="age" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" th:field="*{email}" id="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" th:field="*{password}" id="password" required>
+        </div>
+        <button type="submit" class="submit-btn">Save Changes</button>
+    </form>
+    <form th:action="@{/logout}" th:method="POST">
+        <input type="submit" value="Logout" class="logout-btn"/>
+    </form>
+</div>
+</body>
+</html>
